@@ -1,7 +1,13 @@
+require 'kramdown'
+
 module HtmlEmailCreator
-  class Markdown
-    def self.render(string)
-      
+  class Markdown    
+    def initialize(text)
+      @document = Kramdown::Document.new(text)
+    end
+    
+    def to_html
+      @document.to_html
     end
   end
 end

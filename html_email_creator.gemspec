@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   
   # Runtime Dependencies
 
-  s.add_runtime_dependency "redcarpet", ">= 2.0.0b5"
+  s.add_runtime_dependency "kramdown", ">= 0.13.3"
   s.add_runtime_dependency "liquid", ">= 2.3.0"
   s.add_runtime_dependency "nokogiri", ">= 1.5.0"
   s.add_runtime_dependency "inline-style", ">= 0.5.0"

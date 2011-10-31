@@ -3,9 +3,9 @@ PATH
   specs:
     html_email_creator (0.0.1)
       inline-style (>= 0.5.0)
+      kramdown (>= 0.13.3)
       liquid (>= 2.3.0)
       nokogiri (>= 1.5.0)
-      redcarpet (>= 2.0.0b5)
 
 GEM
   remote: http://rubygems.org/
@@ -21,12 +21,12 @@ GEM
       facets
       maca-fork-csspool
       nokogiri
+    kramdown (0.13.3)
     liquid (2.3.0)
     maca-fork-csspool (2.0.2)
       ffi
     nokogiri (1.5.0)
     rake (0.9.2.2)
-    redcarpet (2.0.0b5)
     rspec (2.7.0)
       rspec-core (~> 2.7.0)
       rspec-expectations (~> 2.7.0)

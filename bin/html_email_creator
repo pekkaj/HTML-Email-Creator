@@ -2,7 +2,7 @@
 
 require 'html_email_creator'
 begin
-  HtmlEmailCreator.HelloWorld.say  
+  HtmlEmailCreator::HelloWorld.say  
 rescue SystemExit => e
   exit e.status
 rescue Exception => e

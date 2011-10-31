@@ -20,9 +20,20 @@ Gem::Specification.new do |s|
   s.email    = 'pekka.mattila@gmail.com'
   s.homepage = 'https://github.com/pekkaj/HTML-Email-Creator'
   
-  git_files            = `git ls-files`.split("\n") rescue ''
-  s.test_files         = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables        << 'html_email_creator'
-  s.files              = git_files
-  s.require_paths      = ["lib"]
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+  
+  # Runtime Dependencies
+
+  s.add_runtime_dependency "redcarpet", ">= 2.0.0b5"
+  s.add_runtime_dependency "liquid", ">= 2.3.0"
+  s.add_runtime_dependency "nokogiri", ">= 1.5.0"
+  s.add_runtime_dependency "inline-style", ">= 0.5.0"
+  
+  # Development Dependencies
+  
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rake", ">= 0.9.2"
 end

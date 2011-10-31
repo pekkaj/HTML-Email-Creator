@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+require 'html_email_creator'
+begin
+  HtmlEmailCreator.HelloWorld.say  
+rescue SystemExit => e
+  exit e.status
+rescue Exception => e
+  puts "Unfortunately, a fatal error has occurred."
+  raise e
+end

@@ -1,0 +1,3 @@
+layout_path: "Layouts"
+output_path: "Output"
+cdn_url: "http://cdn.example.com"

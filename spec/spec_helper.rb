@@ -6,8 +6,8 @@ RSpec.configure do |config|
   config.before :each do
     ARGV.replace []
   end
+end
 
-  def source_root
-    File.join(File.dirname(__FILE__), 'fixtures')
-  end
+def fixture_dir(*pathparts)
+  File.join(File.dirname(__FILE__), 'fixtures', pathparts)
 end

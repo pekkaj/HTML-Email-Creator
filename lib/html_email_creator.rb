@@ -5,7 +5,13 @@ module HtmlEmailCreator
   autoload :Markdown, 'html_email_creator/markdown'
   
   class << self
-    # TODO: add settings here (find out how Bundler have solved this problem)
+    def root_dir
+      Dir.pwd
+    end
+    
+    def settings
+      @settings ||= Settings.new(root_dir)
+    end
   end
 end
 

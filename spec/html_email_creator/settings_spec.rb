@@ -20,4 +20,14 @@ describe HtmlEmailCreator::Settings do
       @default_settings.cdn_url.should eql("")
     end
   end
+  
+  describe "finding settings from the file system" do
+    
+    it "should find the configuration recursively from leaf to root" do
+      HtmlEmailCreator::Settings.new(fixture_dir).cdn_url.should eql("") # not found
+      HtmlEmailCreator::Settings.new(fixture_dir("with_config")).cdn_url.should eql("http://cdn.example.com") # found
+      HtmlEmailCreator::Settings.new(fixture_dir("with_config", "Layout")).cdn_url.should eql("http://cdn.example.com") # found
+    end
+    
+  end
 end

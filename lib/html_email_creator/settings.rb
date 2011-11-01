@@ -18,7 +18,11 @@ module HtmlEmailCreator
     def output_path
       @config["output_path"]
     end
-    
+
+    def cdn_url
+      @config["cdn_url"]
+    end
+
     private
 
     def create_configuration
@@ -33,7 +37,8 @@ module HtmlEmailCreator
     def default_config
       {
         "layout_path" => File.join(@root, "layouts"),
-        "output_path" => File.join(@root, "output")
+        "output_path" => File.join(@root, "output"),
+        "cdn_url" => ""
       }
     end
     

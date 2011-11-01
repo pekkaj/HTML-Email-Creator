@@ -15,5 +15,9 @@ describe HtmlEmailCreator::Settings do
     it "should return user's home directory based output directory" do
       @default_settings.output_path.should eql(File.join(@home_directory, "output"))
     end
+
+    it "should return empty CDN url" do
+      @default_settings.cdn_url.should eql("")
+    end
   end
 end

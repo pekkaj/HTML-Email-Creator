@@ -1,9 +1,10 @@
 module HtmlEmailCreator
   
+  autoload :Helper, 'html_email_creator/helper'
   autoload :Layout, 'html_email_creator/layout'
   autoload :Settings, 'html_email_creator/settings'
   autoload :Markdown, 'html_email_creator/markdown'
-  
+
   class << self
     attr_writer :settings
     

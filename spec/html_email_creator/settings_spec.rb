@@ -9,19 +9,33 @@ describe HtmlEmailCreator::Settings do
     end  
 
     it "should return user's home directory based layouts directory" do
-      @default_settings.layout_path.should eql(File.join(@home_directory, "layouts"))
+      @default_settings.layout_path.should eql(File.join(@home_directory, "Layouts"))
     end
 
     it "should return user's home directory based output directory" do
-      @default_settings.output_path.should eql(File.join(@home_directory, "output"))
+      @default_settings.output_path.should eql(File.join(@home_directory, "Output"))
     end
 
     it "should return empty CDN url" do
       @default_settings.cdn_url.should eql("")
     end
-    
+
     it "should return extension list" do
       @default_settings.extensions.should eql([])
+    end
+  end
+
+  describe "finding default directories" do
+    before(:all) do
+      @default_settings = HtmlEmailCreator::Settings.new(fixture_dir("default_config", "Emails", "Newsletter"))
+    end  
+
+    it "should find Layout directory recursively" do
+      @default_settings.layout_path.should eql(fixture_dir("default_config", "Layouts"))
+    end
+
+    it "should find Output directory recursively" do
+      @default_settings.output_path.should eql(fixture_dir("default_config", "Output"))
     end
   end
   

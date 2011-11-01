@@ -8,7 +8,7 @@ module HtmlEmailCreator
     def initialize(root = nil)
       @root = root
       @root ||= File.expand_path('~')
-      @config = create_configuration
+      @config = create_configuration      
     end
     
     def layout_path
@@ -30,7 +30,7 @@ module HtmlEmailCreator
     private
 
     def create_configuration
-      config_file = find_config_file(@root)
+      config_file = find_config_file
       if config_file
         YAML.load_file(config_file)
       else
@@ -40,26 +40,19 @@ module HtmlEmailCreator
     
     def default_config
       {
-        "layout_path" => File.join(@root, "layouts"),
-        "output_path" => File.join(@root, "output"),
+        "layout_path" => find_dir("Layouts"),
+        "output_path" => find_dir("Output"),
         "cdn_url" => "",
         "extensions" => []
       }
     end
     
-    def find_config_file(start_from)
-      current_file = File.join(start_from, ".html_config.yaml")
-      if File.exists?(current_file)
-        current_file
-      else
-        next_file = File.dirname(start_from)
-        if start_from == next_file
-          return nil
-        end
-        
-        # continue searching
-        find_config_file(next_file)
-      end      
+    def find_dir(dir)
+      HtmlEmailCreator::Helper.find_recursively(@root, dir, File.join(@root, dir))
+    end
+              
+    def find_config_file
+      HtmlEmailCreator::Helper.find_recursively(@root, ".html_config.yaml")
     end
   end
 end

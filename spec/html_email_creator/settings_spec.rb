@@ -19,6 +19,10 @@ describe HtmlEmailCreator::Settings do
     it "should return empty CDN url" do
       @default_settings.cdn_url.should eql("")
     end
+    
+    it "should return extension list" do
+      @default_settings.extensions.should eql([])
+    end
   end
   
   describe "finding settings from the file system" do
@@ -39,6 +43,6 @@ describe HtmlEmailCreator::Settings do
       Dir.chdir(File.dirname(__FILE__))
       HtmlEmailCreator.update_settings
       HtmlEmailCreator.settings.cdn_url.should eql("") # not found
-    end    
+    end
   end
 end

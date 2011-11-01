@@ -16,11 +16,15 @@ module HtmlEmailCreator
     end
     
     def settings
-      @settings ||= Settings.new(root)
+      @settings ||= read_settings(root)
     end
     
     def update_settings
-      @settings = Settings.new(current_root_dir)
+      @settings = read_settings(current_root_dir)
+    end
+    
+    def read_settings(dir)
+      Settings.new(dir)
     end
   end
 end

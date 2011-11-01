@@ -22,6 +22,10 @@ module HtmlEmailCreator
     def cdn_url
       @config["cdn_url"]
     end
+    
+    def extensions
+      @config["extensions"]
+    end
 
     private
 
@@ -38,7 +42,8 @@ module HtmlEmailCreator
       {
         "layout_path" => File.join(@root, "layouts"),
         "output_path" => File.join(@root, "output"),
-        "cdn_url" => ""
+        "cdn_url" => "",
+        "extensions" => []
       }
     end
     

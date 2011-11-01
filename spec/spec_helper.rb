@@ -11,3 +11,11 @@ end
 def fixture_dir(*pathparts)
   File.join(File.dirname(__FILE__), 'fixtures', pathparts)
 end
+
+def run_in_fixture_dir(*pathparts, &block)
+  current_dir = Dir.pwd
+  Dir.chdir(fixture_dir(pathparts))
+  HtmlEmailCreator.update_settings
+  yield self if block_given?
+  Dir.chdir(current_dir)
+end

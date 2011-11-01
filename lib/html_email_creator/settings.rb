@@ -11,8 +11,12 @@ module HtmlEmailCreator
       @config = create_configuration      
     end
     
-    def layout_path
-      @config["layout_path"]
+    def emails_path
+      @config["emails_path"]
+    end
+    
+    def layouts_path
+      @config["layouts_path"]
     end
     
     def output_path
@@ -40,8 +44,9 @@ module HtmlEmailCreator
     
     def default_config
       {
-        "layout_path" => find_dir("Layouts"),
+        "layouts_path" => find_dir("Layouts"),
         "output_path" => find_dir("Output"),
+        "emails_path" => find_dir("Emails"),
         "cdn_url" => "",
         "extensions" => []
       }

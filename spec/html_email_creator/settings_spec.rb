@@ -8,8 +8,12 @@ describe HtmlEmailCreator::Settings do
       @default_settings = HtmlEmailCreator::Settings.new
     end  
 
+    it "should return user's home directory based email directory" do
+      @default_settings.emails_path.should eql(File.join(@home_directory, "Emails"))
+    end
+
     it "should return user's home directory based layouts directory" do
-      @default_settings.layout_path.should eql(File.join(@home_directory, "Layouts"))
+      @default_settings.layouts_path.should eql(File.join(@home_directory, "Layouts"))
     end
 
     it "should return user's home directory based output directory" do
@@ -31,7 +35,11 @@ describe HtmlEmailCreator::Settings do
     end  
 
     it "should find Layout directory recursively" do
-      @default_settings.layout_path.should eql(fixture_dir("default_config", "Layouts"))
+      @default_settings.emails_path.should eql(fixture_dir("default_config", "Emails"))
+    end
+
+    it "should find Layout directory recursively" do
+      @default_settings.layouts_path.should eql(fixture_dir("default_config", "Layouts"))
     end
 
     it "should find Output directory recursively" do

@@ -1,5 +1,6 @@
-layout_path: "Layouts"
+layouts_path: "Layouts"
 output_path: "Output"
+emails_path: "Emails"
 cdn_url: "http://cdn.example.com"
 extensions:
   - "aweber"

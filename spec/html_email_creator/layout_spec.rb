@@ -15,7 +15,7 @@ describe HtmlEmailCreator::Layout do
   describe "with aweber mail" do
     it "should replace Aweber variables correctly if aweber extension exists" do
       HtmlEmailCreator::Layout.new("{{ after_7_days }}", ["aweber"]).to_html.should eql('{!date dayname+7}')
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('')
+      HtmlEmailCreator::Layout.new("{{ after_7_days }}", []).to_html.should eql('')
     end
 
     it "should replace Aweber variables correctly if aweber extension exists in settings" do

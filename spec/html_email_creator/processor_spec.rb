@@ -37,28 +37,29 @@ This is simple email with <a href="http://link1.com">link</a>
 <li>list 1</li>
 <li>list 2</li>
 </ul>
-
+</body>
+</html>
 eos
-    
+
     HtmlEmailCreator::Processor.new(html)
   }
 
   describe "#to_html" do
     let(:html) { processor.to_html }
-    
+
     it "should wrap headers with divs" do
       html.should include('<div class="h1"><div style="font-family: Helvetica;">Header 1</div></div>')
     end
-    
+
     it "should inline styles" do
       html.should include('<ul style="margin: 5px 5px 5px 5px;">')
     end
-    
+
   end
-  
+
   describe "#to_plain_text" do
     let(:text) { processor.to_plain_text }
-    
+
     it "format plain text message in a nice way" do
       expected_output = <<-eos
 =============================================================================
@@ -84,8 +85,27 @@ Header 2
 - list 1
 - list 2
 eos
-      
+
       text.should eq(expected_output.strip)
-    end 
+    end
+  end
+
+  describe "aweber escaping" do
+    it "should not escape aweber markup if using aweber extension" do
+      html = <<-eos
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<body>
+<p>{!date dayname+7}</p>
+</body>
+</html>
+eos
+
+      run_in_fixture_dir("with_config") do
+        processor = HtmlEmailCreator::Processor.new(html)
+        processor.to_html.should include("<p>{!date dayname+7}</p>")
+        processor.to_plain_text.should include("{!date dayname+7}")
+      end
+    end
   end
 end

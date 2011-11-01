@@ -3,8 +3,7 @@ require "liquid"
 module HtmlEmailCreator
   module BuiltInFilters
     def photo(input, alt)
-      # TODO: find from settings
-      url = "http://cdn.somehost.com/#{input}"
+      url = "#{HtmlEmailCreator.settings.cdn_url}/#{input}"
       "<img src=\"#{url}\" alt=\"#{alt}\" border=\"0\">"
     end
 
@@ -36,12 +35,12 @@ module HtmlEmailCreator
       @template = Liquid::Template.parse(text)
     end
     
-    def to_aweber_html(data, *filters)
+    def to_aweber_html(data = {}, *filters)
       data_with_aweber = data.merge(@@AWEBER_REPLACEMENTS)
-      to_html(data, filters)
+      to_html(data_with_aweber, filters)
     end
     
-    def to_html(data, *filters)
+    def to_html(data = {}, *filters)
       @template.render(data, :filters => [BuiltInFilters] + filters)
     end
   end

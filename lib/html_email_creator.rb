@@ -24,4 +24,3 @@ module HtmlEmailCreator
     end
   end
 end
-

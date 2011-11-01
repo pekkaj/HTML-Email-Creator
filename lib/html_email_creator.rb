@@ -1,6 +1,7 @@
 module HtmlEmailCreator
   
   autoload :Email, "html_email_creator/email"
+  autoload :Extensions, "html_email_creator/extensions"
   autoload :Helper, 'html_email_creator/helper'
   autoload :Layout, 'html_email_creator/layout'
   autoload :Markdown, 'html_email_creator/markdown'

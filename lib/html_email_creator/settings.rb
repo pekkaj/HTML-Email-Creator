@@ -28,7 +28,10 @@ module HtmlEmailCreator
     end
     
     def extensions
-      @config["extensions"]
+      return @extension_data if @extension_data
+      built_in = HtmlEmailCreator::Extensions.built_in((@config["extensions"] || {})["built_in"])
+      custom = HtmlEmailCreator::Extensions.built_in((@config["extensions"] || {})["custom"])
+      @extension_data = built_in.merge(custom)
     end
 
     private
@@ -48,7 +51,7 @@ module HtmlEmailCreator
         "output_path" => find_dir("Output"),
         "emails_path" => find_dir("Emails"),
         "cdn_url" => "",
-        "extensions" => []
+        "extensions" => {}
       }
     end
     

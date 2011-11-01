@@ -12,27 +12,7 @@ module HtmlEmailCreator
     end
   end
 
-  class Layout
-    @@EXTENSIONS = {
-      'aweber' => {
-        'email' => '{!email}',
-        'subscription_date' => '{!signdate long}',
-        'unsubscribe_url' => '{!remove_web}',
-        'full_name' => '{!name_fix}',
-        'first_name' => '{!firstname_fix}',
-        'last_name' => '{!lastname_fix}',
-        'company_signature' => '{!signature}',
-        'company_address' => '{!contact_address}',
-        'tomorrow' => '{!date dayname+1}',
-        'after_2_days' => '{!date dayname+2}',
-        'after_3_days' => '{!date dayname+3}',
-        'after_4_days' => '{!date dayname+4}',
-        'after_5_days' => '{!date dayname+5}',
-        'after_6_days' => '{!date dayname+6}',
-        'after_7_days' => '{!date dayname+7}'
-      }
-    }
-    
+  class Layout    
     def initialize(text, extensions = HtmlEmailCreator.settings.extensions)
       @template = Liquid::Template.parse(text)
       @default_data = read_default_data(extensions)

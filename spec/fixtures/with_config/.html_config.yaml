@@ -3,4 +3,8 @@ output_path: "Output"
 emails_path: "Emails"
 cdn_url: "http://cdn.example.com"
 extensions:
-  - "aweber"
+  built_in:
+    - "aweber"
+  custom:
+    - foobar: "Hi, this is foobar."
+    - great_photo: "Hi, this is great photo: {{ email/joo.jpg | photo: 'ultimate alt text' }}."

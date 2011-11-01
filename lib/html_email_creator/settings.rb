@@ -1,6 +1,6 @@
 module HtmlEmailCreator
   class Settings
-    
+
     # Create settings configuration file.
     # 
     # If the root is not set, the configuration is not searched from the file system
@@ -10,15 +10,15 @@ module HtmlEmailCreator
       @root ||= File.expand_path('~')
       @config = create_configuration      
     end
-    
+
     def emails_path
       @config["emails_path"]
     end
-    
+
     def layouts_path
       @config["layouts_path"]
     end
-    
+
     def output_path
       @config["output_path"]
     end
@@ -26,15 +26,25 @@ module HtmlEmailCreator
     def cdn_url
       @config["cdn_url"]
     end
-    
-    def extensions
+
+    def extension_data
       return @extension_data if @extension_data
-      built_in = HtmlEmailCreator::Extensions.built_in((@config["extensions"] || {})["built_in"])
-      custom = HtmlEmailCreator::Extensions.built_in((@config["extensions"] || {})["custom"])
-      @extension_data = built_in.merge(custom)
+      extensions = HtmlEmailCreator::Extensions.new(self)
+      built_in_data = extensions.built_in(built_in_extensions)
+      # use built in data for creating custom data
+      custom_data = extensions.custom(built_in_data, custom_extensions)
+      @extension_data = built_in_data.merge(custom_data)
     end
 
+    def built_in_extensions
+      (@config["extensions"] || {})["built_in"] || []
+    end
+    
     private
+
+    def custom_extensions
+      (@config["extensions"] || {})["custom"] || {}
+    end
 
     def create_configuration
       config_file = find_config_file

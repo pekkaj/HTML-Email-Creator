@@ -6,5 +6,5 @@ extensions:
   built_in:
     - "aweber"
   custom:
-    - foobar: "Hi, this is foobar."
-    - great_photo: "Hi, this is great photo: {{ email/joo.jpg | photo: 'ultimate alt text' }}."
+    foobar: "Hi, this is foobar."
+    great_photo: "Hi, this is **great**"

@@ -25,7 +25,7 @@ describe HtmlEmailCreator::Settings do
     end
 
     it "should return extension list" do
-      @default_settings.extensions.should eql([])
+      @default_settings.extension_data.should eql({})
     end
   end
 

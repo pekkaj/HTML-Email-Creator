@@ -22,17 +22,25 @@ module HtmlEmailCreator
       }
     }
     
-    def built_in(*extensions)
-      data = {}
-      extensions.each do |extension|
-        data.merge(@@EXTENSIONS[extension] || {})
-      end
-      data
+    def initialize(settings = HtmlEmailCreator.settings)
+      @settings = settings
     end
     
-    def custom(*extensions)
-      # TODO
-      {}
+    def built_in(*extensions)
+      new_data = {}
+      extensions.flatten.each do |extension|
+        data = @@EXTENSIONS[extension]
+        new_data.merge!(data.dup) if data
+      end
+      new_data
+    end
+    
+    def custom(data = {}, extensions)
+      new_data = {}
+      extensions.each_pair do |key, value|
+        new_data[key] = HtmlEmailCreator::Markdown.new(value).to_html
+      end
+      new_data
     end
   end
 end

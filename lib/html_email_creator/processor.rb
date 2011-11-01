@@ -38,7 +38,7 @@ module HtmlEmailCreator
       inlined_html_email = InlineStyle.process(html_email)
       
       # Then remove escaping of Aweber templates
-      @processed_html_email = if @settings.extensions.include?("aweber")
+      @processed_html_email = if @settings.built_in_extensions.include?("aweber")
         inlined_html_email.gsub(/%7B/, '{').gsub(/%7D/, '}').gsub(/!global%20/, '!global ')
       else
         inlined_html_email

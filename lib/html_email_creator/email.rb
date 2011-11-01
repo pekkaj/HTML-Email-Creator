@@ -38,10 +38,6 @@ module HtmlEmailCreator
       File.join(@settings.layouts_path, @configuration["config"]["layout"])
     end
     
-    def extensions
-      @settings.extensions
-    end
-    
     def collect_and_render_template_data
       data = {}
       @configuration["config"]["data"].each_pair do |key, value|

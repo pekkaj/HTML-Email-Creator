@@ -13,15 +13,18 @@ describe HtmlEmailCreator::Layout do
   end
   
   describe "with aweber mail" do
-    it "should replace Aweber variables correctly if aweber extension exists" do
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}", ["aweber"]).to_html.should eql('{!date dayname+7}')
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}", []).to_html.should eql('')
+    let(:aweber) { HtmlEmailCreator::Extensions.new.built_in("aweber") }
+    let(:none) { {} }
+    
+    it "should replace Aweber variables correctly if aweber extension exists" do      
+      HtmlEmailCreator::Layout.new("{{ after_7_days }}", aweber).to_html.should eql('{!date dayname+7}')
+      HtmlEmailCreator::Layout.new("{{ after_7_days }}", none).to_html.should eql('')
     end
 
     it "should replace Aweber variables correctly if aweber extension exists in settings" do
-      Dir.chdir(fixture_dir("with_config"))
-      HtmlEmailCreator.update_settings
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('{!date dayname+7}')
+      run_in_fixture_dir("with_config") do
+        HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('{!date dayname+7}')
+      end
     end
   end
   

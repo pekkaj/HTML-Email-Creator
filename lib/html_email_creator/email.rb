@@ -2,6 +2,8 @@ require "liquid"
 
 module HtmlEmailCreator
   class Email
+    attr_reader :settings
+    
     def initialize(configuration, settings = HtmlEmailCreator.settings)
       @configuration = if configuration.class == String
         YAML.load_file(configuration)
@@ -23,6 +25,7 @@ module HtmlEmailCreator
       File.open(output_path, "w") do |file|
         file.write(render)
       end
+      output_path
     end
     
     private

@@ -3,6 +3,6 @@ config:
   layout: "simple.liquid"
   data:
     first_content:
-      file: "Emails/foobar.md"    
+      file: "Emails/foobar.md"
     second_content:
       file: "Emails/barfoo.md"

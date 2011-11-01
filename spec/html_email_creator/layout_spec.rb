@@ -23,7 +23,6 @@ describe HtmlEmailCreator::Layout do
       HtmlEmailCreator.update_settings
       HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('{!date dayname+7}')
     end
-
   end
   
   describe "with built-in filters" do
@@ -38,6 +37,5 @@ describe HtmlEmailCreator::Layout do
       output = '<img src="http://cdn.example.com/hello/world.jpg" alt="Custom alt text" border="0">'
       HtmlEmailCreator::Layout.new(markdown).to_html.should eql(output)
     end
-    
   end
 end

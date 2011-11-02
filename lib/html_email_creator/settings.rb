@@ -11,16 +11,20 @@ module HtmlEmailCreator
       @config = create_configuration      
     end
 
-    def emails_path
-      @config["emails_path"]
-    end
-
     def layouts_path
       @config["layouts_path"]
     end
 
     def output_path
       @config["output_path"]
+    end
+
+    def emails_path
+      @config["emails_path"]
+    end
+    
+    def includes_path
+      @config["includes_path"]
     end
 
     def cdn_url
@@ -49,7 +53,21 @@ module HtmlEmailCreator
     def create_configuration
       config_file = find_config_file
       if config_file
-        YAML.load_file(config_file)
+        config_root_dir = File.dirname(config_file)
+        loaded_config = YAML.load_file(config_file)
+        # fill missing values with defaults if missing
+        default_config.each_pair do |key, value|          
+          loaded_config[key] = value unless loaded_config[key]
+        end
+        
+        # make absolute paths if is relative for all _path ending keys
+        loaded_config.each_pair do |key, value|
+          if key.match(/_path$/) && !value.match(/^\//)
+            loaded_config[key] = File.join(config_root_dir, value)
+          end
+        end
+        
+        loaded_config
       else
         default_config
       end
@@ -60,6 +78,7 @@ module HtmlEmailCreator
         "layouts_path" => find_dir("Layouts"),
         "output_path" => find_dir("Output"),
         "emails_path" => find_dir("Emails"),
+        "includes_path" => find_dir("Includes"),
         "cdn_url" => "",
         "extensions" => {}
       }

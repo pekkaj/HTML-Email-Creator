@@ -1,7 +1,17 @@
+def require_all(path)
+  glob = File.join(File.dirname(__FILE__), path, '*.rb')
+  Dir[glob].each do |f|
+    require f
+  end
+end
+
+require_all 'html_email_creator/tags'
+
 module HtmlEmailCreator
   
   autoload :Email, "html_email_creator/email"
   autoload :Extensions, "html_email_creator/extensions"
+  autoload :Filters, 'html_email_creator/filters'
   autoload :Helper, 'html_email_creator/helper'
   autoload :Layout, 'html_email_creator/layout'
   autoload :Markdown, 'html_email_creator/markdown'
@@ -10,7 +20,7 @@ module HtmlEmailCreator
   autoload :Settings, 'html_email_creator/settings'
 
   class << self
-    attr_writer :settings
+    attr_writer :settings    
     
     def root
       @root ||= current_root_dir

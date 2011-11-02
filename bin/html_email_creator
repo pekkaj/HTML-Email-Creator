@@ -1,11 +1,20 @@
 #!/usr/bin/env ruby
 
+require 'commander/import'
 require 'html_email_creator'
-begin
-  # TODO, start the creator
-rescue SystemExit => e
-  exit e.status
-rescue Exception => e
-  puts "Unfortunately, a fatal error has occurred."
-  raise e
+require 'html_email_creator/version'
+
+# :name is optional, otherwise uses the basename of this executable
+program :name, 'HTML Email Creator'
+program :version, HtmlEmailCreator::VERSION
+program :description, 'An easy way to create HTML and plain text emails using Markdown markup and Liquid layouts.'
+
+command :create do |c|
+  c.syntax = 'html_email_creator create <email or directory>'
+  c.description = 'Creates a single email or all emails from the directory'
+  c.option '--recursively', 'If building a set of mails of a directory, do it recursively.'
+  c.action do |args, options|
+    # TODO
+    say File.expand_path(first)
+  end
 end

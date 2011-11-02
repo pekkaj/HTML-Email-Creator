@@ -20,6 +20,7 @@ module HtmlEmailCreator
   autoload :Processor, 'html_email_creator/processor'
   autoload :Renderer, 'html_email_creator/renderer'
   autoload :Settings, 'html_email_creator/settings'
+  autoload :Version, 'html_email_creator/version'
 
   class << self
     attr_writer :settings    

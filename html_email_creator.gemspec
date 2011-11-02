@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   
   # Runtime Dependencies
 
+  s.add_runtime_dependency "commander", ">= 4.0.6"
   s.add_runtime_dependency "kramdown", ">= 0.13.3"
   s.add_runtime_dependency "liquid", ">= 2.3.0"
   s.add_runtime_dependency "nokogiri", ">= 1.5.0"

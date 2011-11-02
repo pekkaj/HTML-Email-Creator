@@ -1,19 +1,18 @@
 require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
-describe HtmlEmailCreator::Markdown do
-    
-  describe "Markdown conversion to HTML" do
+describe HtmlEmailCreator::Formatter do
+  describe "Markdown" do
     it "should convert correctly" do
-      HtmlEmailCreator::Markdown.new("**I am strong**").to_html.should eql("<p><strong>I am strong</strong></p>\n")
+      HtmlEmailCreator::Formatter.new("**I am strong**").format(:md).should eql("<p><strong>I am strong</strong></p>")
     end
-    
+
     it "should support table extension" do
       markdown = <<-eos
 | First | Second | Third |
 |:------|:-------|:------|
 | 1     | 2      | 3     |
       eos
-      
+
       html = <<eos
 <table>
   <thead>
@@ -32,8 +31,8 @@ describe HtmlEmailCreator::Markdown do
   </tbody>
 </table>
 eos
-      
-      HtmlEmailCreator::Markdown.new(markdown).to_html.should eql(html)
+
+      HtmlEmailCreator::Formatter.new(markdown).format(:md).should eql(html.strip)
     end
   end
 end

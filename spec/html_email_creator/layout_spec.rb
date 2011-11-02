@@ -47,7 +47,7 @@ describe HtmlEmailCreator::Layout do
     it "should generate photo url correctly" do
       run_in_fixture_dir("with_config") do
         markdown = '{{ "hello/world.jpg" | photo: "Custom alt text" }}'
-        output = '<img src="http://cdn.example.com/hello/world.jpg" alt="Custom alt text" border="0">'
+        output = '<img src="http://cdn.example.com/hello/world.jpg" alt="Custom alt text" border="0" />'
         HtmlEmailCreator::Layout.new(markdown).to_html.should eql(output)
       end
     end

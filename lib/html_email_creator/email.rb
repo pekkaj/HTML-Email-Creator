@@ -14,9 +14,8 @@ module HtmlEmailCreator
     end
     
     def render
-      data = collect_and_render_template_data
-      text = IO.read(layout_path)
-      HtmlEmailCreator::Renderer.new(text).to_html(data)
+      layout = fill_blanks(IO.read(layout_path))
+      HtmlEmailCreator::Layout.new(layout, settings.extension_data).to_html
     end
     
     def render_and_store
@@ -38,20 +37,12 @@ module HtmlEmailCreator
       File.join(@settings.layouts_path, @configuration["config"]["layout"])
     end
     
-    def collect_and_render_template_data
-      data = {}
+    def fill_blanks(layout)
+      filled_layout = layout.dup
       @configuration["config"]["data"].each_pair do |key, value|
-        template = ""
-        if value["inline"]
-          template = value["inline"]
-        elsif value["file"]
-          template = IO.read(File.join(@settings.emails_path, value["file"]))
-        else
-          raise "Data must have either inline or file configuration"
-        end
-        data[key] = HtmlEmailCreator::Renderer.new(template).to_html
+        filled_layout.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
       end
-      data
+      filled_layout
     end
   end
 end

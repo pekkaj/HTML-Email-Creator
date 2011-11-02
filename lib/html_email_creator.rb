@@ -6,12 +6,14 @@ def require_all(path)
 end
 
 require_all 'html_email_creator/tags'
+require_all 'html_email_creator/formatters'
 
 module HtmlEmailCreator
   
   autoload :Email, "html_email_creator/email"
   autoload :Extensions, "html_email_creator/extensions"
   autoload :Filters, 'html_email_creator/filters'
+  autoload :Formatter, 'html_email_creator/formatter'
   autoload :Helper, 'html_email_creator/helper'
   autoload :Layout, 'html_email_creator/layout'
   autoload :Markdown, 'html_email_creator/markdown'

@@ -1,0 +1,3 @@
+Kind Regards,
+
+{{ name }}

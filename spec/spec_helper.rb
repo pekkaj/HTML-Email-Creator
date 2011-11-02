@@ -16,6 +16,7 @@ def run_in_fixture_dir(*pathparts, &block)
   current_dir = Dir.pwd
   Dir.chdir(fixture_dir(pathparts))
   HtmlEmailCreator.update_settings
-  yield self if block_given?
+  res = yield
   Dir.chdir(current_dir)
+  res
 end

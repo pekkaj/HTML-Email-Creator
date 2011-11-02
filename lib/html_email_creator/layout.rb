@@ -3,6 +3,7 @@ require "liquid"
 module HtmlEmailCreator
   class Layout
     def initialize(text, default_data = HtmlEmailCreator.settings.extension_data)
+      @text = text
       @template = Liquid::Template.parse(text)
       @default_data = default_data
     end

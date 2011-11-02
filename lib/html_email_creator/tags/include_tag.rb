@@ -53,7 +53,8 @@ module HtmlEmailCreator
     def read_template_from_file_system(context)
       template = template_path(context)
       if File.exists?(template)
-        IO.read(template)
+        # run through a formatter
+        HtmlEmailCreator::Formatter.new(IO.read(template)).format_by_filename(template)
       else
         "Included file '#{template}' not found."
       end
@@ -61,8 +62,7 @@ module HtmlEmailCreator
     
     def template_path(context)
       includes_dir = (context.registers[:settings] || HtmlEmailCreator.settings).includes_path
-      full_path = File.join(includes_dir, context[@template_name])
-      File.join(File.dirname(full_path), "_#{File.basename(full_path)}.liquid")      
+      File.join(includes_dir, context[@template_name])
     end
 
   end

@@ -1,19 +1,19 @@
 require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe HtmlEmailCreator::Email do
-
-  before(:each) do
-    @email = fixture_dir("with_config", "Emails", "first_email.yaml")
-    @expected_html = <<-eos
-<p>This is simple template.</p>
+  let(:email) { fixture_dir("with_config", "Emails", "first_email.yaml") }
+  let(:expected_html) {
+    html = <<eos
+This is simple template.
 
 <p>foo bar</p>
 
 <p>bar foo</p>
 
-<p><img src="http://cdn.example.com/foo/bar" alt="alt text" border="0" /></p>
-    eos
-  end
+<img src="http://cdn.example.com/foo/bar" alt="alt text" border="0" />
+eos
+    html.strip
+  }
 
   after(:each) do
     html_files = File.join(fixture_dir("with_config"), "**", "*.html")
@@ -24,19 +24,19 @@ describe HtmlEmailCreator::Email do
 
   it "should render markdown and liquid templates using settings and email configuration" do
     run_in_fixture_dir("with_config") do
-      HtmlEmailCreator::Email.new(@email).render.should eql(@expected_html)
+      HtmlEmailCreator::Email.new(email).render.should eql(expected_html)
     end
   end
 
   it "should store rendered markdown and liquid templates using settings and email configuration to file system" do
     run_in_fixture_dir("with_config") do
-      IO.read(HtmlEmailCreator::Email.new(@email).render_and_store).should eql(@expected_html)
+      IO.read(HtmlEmailCreator::Email.new(email).render_and_store).should eql(expected_html)
     end
   end
 
   it "should store the rendered output to the output directory specified in the settings" do
     run_in_fixture_dir("with_config") do
-      HtmlEmailCreator::Email.new(@email).render_and_store.should eql(File.join(HtmlEmailCreator.settings.output_path, "first.html"))
+      HtmlEmailCreator::Email.new(email).render_and_store.should eql(File.join(HtmlEmailCreator.settings.output_path, "first.html"))
     end
   end
 end

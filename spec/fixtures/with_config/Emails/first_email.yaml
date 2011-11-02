@@ -2,9 +2,6 @@ config:
   output: "first.html"
   layout: "simple.liquid"
   data:
-    first_content:
-      file: "foobar.md"
-    second_content:
-      file: "barfoo.md"
-    third_content:
-      inline: "{{ 'foo/bar' | photo: 'alt text' }}"
+    first_content: "{% include 'Emails/foobar.md' %}"
+    second_content: "{% include 'Emails/barfoo.md' %}"
+    third_content: "{{ 'foo/bar' | photo: 'alt text' }}"

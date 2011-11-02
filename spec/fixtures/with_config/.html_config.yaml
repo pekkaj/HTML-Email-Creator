@@ -7,4 +7,4 @@ extensions:
     - "aweber"
   custom:
     foobar: "Hi, this is foobar."
-    great_photo: "Hi, this is **great**"
+    great: "Hi, this is **great**"

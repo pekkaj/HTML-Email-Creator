@@ -7,7 +7,7 @@ module HtmlEmailCreator
     end
     
     def to_html
-      @document.to_html
+      @html ||= @document.to_html
     end
   end
 end

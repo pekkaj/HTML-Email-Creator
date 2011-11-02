@@ -38,7 +38,7 @@ module HtmlEmailCreator
     def custom(data = {}, extensions)
       new_data = {}
       extensions.each_pair do |key, value|
-        new_data[key] = HtmlEmailCreator::Markdown.new(value).to_html
+        new_data[key] = value
       end
       new_data
     end

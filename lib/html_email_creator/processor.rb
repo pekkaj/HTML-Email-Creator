@@ -7,7 +7,7 @@ module HtmlEmailCreator
       @email = email_string
       @settings = settings
     end
-    
+
     def to_html
       return @processed_html_email if @processed_html_email
       

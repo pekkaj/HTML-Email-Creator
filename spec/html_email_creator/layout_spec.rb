@@ -12,21 +12,35 @@ describe HtmlEmailCreator::Layout do
     end
   end
   
-  describe "with aweber mail" do
-    let(:aweber) { HtmlEmailCreator::Extensions.new.built_in("aweber") }
-    let(:none) { {} }
+  describe "with built-in extensions" do
     
-    it "should replace Aweber variables correctly if aweber extension exists" do      
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}", aweber).to_html.should eql('{!date dayname+7}')
-      HtmlEmailCreator::Layout.new("{{ after_7_days }}", none).to_html.should eql('')
-    end
+    describe "aweber" do
+      let(:aweber) { HtmlEmailCreator::Extensions.new.built_in("aweber") }
+      let(:none) { {} }
+    
+      it "should replace Aweber extension keys correctly if aweber extension is being used" do      
+        HtmlEmailCreator::Layout.new("{{ after_7_days }}", aweber).to_html.should eql('{!date dayname+7}')
+        HtmlEmailCreator::Layout.new("{{ after_7_days }}", none).to_html.should eql('')
+      end
 
-    it "should replace Aweber variables correctly if aweber extension exists in settings" do
-      run_in_fixture_dir("with_config") do
-        HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('{!date dayname+7}')
+      it "should replace Aweber extension keys correctly if aweber extension is being used in settings" do
+        run_in_fixture_dir("with_config") do
+          HtmlEmailCreator::Layout.new("{{ after_7_days }}").to_html.should eql('{!date dayname+7}')
+        end
       end
     end
   end
+  
+  describe "with custom extensions" do
+    
+    it "should replace custom extension keys correctly use custom extensions from configuration to render the layout" do
+      run_in_fixture_dir("with_config") do
+        HtmlEmailCreator::Layout.new("{{ foobar }}").to_html.should eql('Hi, this is foobar.')
+        HtmlEmailCreator::Layout.new("{{ great }}").to_html.should eql('Hi, this is **great**')
+      end
+    end
+    
+  end  
   
   describe "with built-in filters" do
     
@@ -37,5 +51,5 @@ describe HtmlEmailCreator::Layout do
         HtmlEmailCreator::Layout.new(markdown).to_html.should eql(output)
       end
     end
-  end  
+  end
 end

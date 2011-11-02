@@ -30,15 +30,12 @@ describe HtmlEmailCreator::Layout do
   
   describe "with built-in filters" do
     
-    before(:each) do
-      Dir.chdir(fixture_dir("with_config"))
-      HtmlEmailCreator.update_settings
-    end
-    
     it "should generate photo url correctly" do
-      markdown = '{{ "hello/world.jpg" | photo: "Custom alt text" }}'
-      output = '<img src="http://cdn.example.com/hello/world.jpg" alt="Custom alt text" border="0">'
-      HtmlEmailCreator::Layout.new(markdown).to_html.should eql(output)
+      run_in_fixture_dir("with_config") do
+        markdown = '{{ "hello/world.jpg" | photo: "Custom alt text" }}'
+        output = '<img src="http://cdn.example.com/hello/world.jpg" alt="Custom alt text" border="0">'
+        HtmlEmailCreator::Layout.new(markdown).to_html.should eql(output)
+      end
     end
-  end
+  end  
 end

@@ -3,18 +3,29 @@
 require 'commander/import'
 require 'html_email_creator'
 require 'html_email_creator/version'
+require 'html_email_creator/information'
 
 # :name is optional, otherwise uses the basename of this executable
 program :name, 'HTML Email Creator'
 program :version, HtmlEmailCreator::VERSION
-program :description, 'An easy way to create HTML and plain text emails using Markdown markup and Liquid layouts.'
+program :description, HtmlEmailCreator::DESCRIPTION
 
 command :create do |c|
   c.syntax = 'html_email_creator create <email or directory>'
   c.description = 'Creates a single email or all emails from the directory'
-  c.option '--recursively', 'If building a set of mails of a directory, do it recursively.'
+  c.option '--recursive', 'If creating directory, find from sub directories too.'
   c.action do |args, options|
-    # TODO
-    say File.expand_path(first)
+    # TODO implement me
+    recursive = if options.recursive
+      true
+    else
+      false
+    end
+    
+    full_path = File.expand_path(args.first)
+    # run in this directory
+    Dir.chdir(File.dirname(full_path))
+    results = HtmlEmailCreator::EmailCreator.new.create_and_store_emails(full_path, recursive)
+    say results.inspect
   end
 end

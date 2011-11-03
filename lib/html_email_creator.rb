@@ -10,6 +10,7 @@ require_all 'html_email_creator/formatters'
 
 module HtmlEmailCreator
   
+  autoload :EmailCreator, "html_email_creator/email_creator"
   autoload :Email, "html_email_creator/email"
   autoload :Extensions, "html_email_creator/extensions"
   autoload :Filters, 'html_email_creator/filters'

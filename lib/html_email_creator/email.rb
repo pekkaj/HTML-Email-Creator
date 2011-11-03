@@ -4,6 +4,19 @@ module HtmlEmailCreator
   class Email
     attr_reader :settings
     
+    def self.find_emails(file_or_directory, recursively = false)
+      if File.directory?(file_or_directory)
+        if recursively
+          Dir.glob(File.join(file_or_directory, "**", "*.yaml"))
+        else
+          Dir.glob(File.join(file_or_directory, "*.yaml"))
+        end
+      else
+        return [] unless File.extname(file_or_directory) == ".yaml"
+        [file_or_directory]
+      end
+    end
+
     def initialize(configuration, settings = HtmlEmailCreator.settings)
       @configuration = if configuration.class == String
         YAML.load_file(configuration)

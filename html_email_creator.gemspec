@@ -3,13 +3,14 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 require 'html_email_creator/version'
+require 'html_email_creator/information'
 
 Gem::Specification.new do |s|
   s.platform           = Gem::Platform::RUBY
   s.name               = "html_email_creator"
   s.version            = HtmlEmailCreator::VERSION
-  s.summary            = 'An easy way to create HTML and plain text emails!'
-  s.description        = 'An easy way to create HTML and plain text emails using Markdown markup and Liquid layouts.'
+  s.summary            = HtmlEmailCreator::SUMMARY
+  s.description        = HtmlEmailCreator::DESCRIPTION
   s.default_executable = "html_email_creator"
 
   s.required_ruby_version = '>= 1.9.2'

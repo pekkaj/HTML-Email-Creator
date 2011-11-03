@@ -8,7 +8,7 @@ module HtmlEmailCreator
       # TODO
     end
     
-    def cerate_and_store_email(file_or_configuration)
+    def create_and_store_email(file_or_configuration)
       # TODO
     end
         

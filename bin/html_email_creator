@@ -17,7 +17,7 @@ command :create do |c|
   c.action do |args, options|
     # TODO implement me
     recursive = options.recursive ? true : false
-    full_path = File.expand_path(args.first)
+    full_path = File.expand_path(args.first, Dir.pwd)
     # run in this directory
     Dir.chdir(File.dirname(full_path))
     results = HtmlEmailCreator::EmailCreator.new.save_emails(full_path, recursive)

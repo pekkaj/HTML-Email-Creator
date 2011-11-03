@@ -10,8 +10,9 @@ require_all 'html_email_creator/formatters'
 
 module HtmlEmailCreator
   
-  autoload :EmailCreator, "html_email_creator/email_creator"
   autoload :Email, "html_email_creator/email"
+  autoload :EmailCreator, "html_email_creator/email_creator"
+  autoload :EmailVersion, "html_email_creator/email_version"
   autoload :Extensions, "html_email_creator/extensions"
   autoload :Filters, 'html_email_creator/filters'
   autoload :Formatter, 'html_email_creator/formatter'
@@ -25,21 +26,17 @@ module HtmlEmailCreator
 
   class << self
     attr_writer :settings    
-    
-    def root
-      @root ||= current_root_dir
-    end
-    
-    def current_root_dir
+        
+    def current_dir
       Dir.pwd
     end
     
     def settings
-      @settings ||= read_settings(root)
+      @settings ||= read_settings(current_dir)
     end
     
-    def update_settings
-      @settings = read_settings(current_root_dir)
+    def update_settings(from_email_dir = current_dir)
+      @settings = read_settings(from_email_dir)
     end
     
     def read_settings(dir)

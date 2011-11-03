@@ -27,7 +27,8 @@ module HtmlEmailCreator
     end
 
     def render(context)
-      source = read_template_from_file_system(context)
+      settings = find_settings(context)
+      source = read_template_from_file_system(context, settings)
       partial = Liquid::Template.parse(source)
       variable = context[@variable_name || @template_name[1..-2]]
 
@@ -50,21 +51,20 @@ module HtmlEmailCreator
 
     private
 
-    def read_template_from_file_system(context)
-      template = template_path(context)
+    def find_settings(context)
+      (context.registers[:settings] || HtmlEmailCreator.settings)
+    end
+
+    def read_template_from_file_system(context, settings)
+      template = File.join(settings.includes_path, context[@template_name])
       if File.exists?(template)
         # run through a formatter
-        HtmlEmailCreator::Formatter.new(IO.read(template)).format_by_filename(template)
+        formatter = HtmlEmailCreator::Formatter.new(IO.read(template), settings)
+        formatter.find_by_filename(template).format
       else
         "Included file '#{template}' not found."
       end
     end
-    
-    def template_path(context)
-      includes_dir = (context.registers[:settings] || HtmlEmailCreator.settings).includes_path
-      File.join(includes_dir, context[@template_name])
-    end
-
   end
 
   Liquid::Template.register_tag('include', IncludeTag)

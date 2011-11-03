@@ -16,16 +16,12 @@ command :create do |c|
   c.option '--recursive', 'If creating directory, find from sub directories too.'
   c.action do |args, options|
     # TODO implement me
-    recursive = if options.recursive
-      true
-    else
-      false
-    end
-    
+    recursive = options.recursive ? true : false    
     full_path = File.expand_path(args.first)
     # run in this directory
     Dir.chdir(File.dirname(full_path))
-    results = HtmlEmailCreator::EmailCreator.new.create_and_store_emails(full_path, recursive)
+    results = HtmlEmailCreator::EmailCreator.new.save_emails(full_path, recursive)
+    say "Saving completed:"
     say results.inspect
   end
 end

@@ -1,5 +1,5 @@
 config:
-  output: "first.html"
+  output: "first"
   layout: "simple.liquid"
   data:
     first_content: "{% include 'Emails/foobar.md' %}"

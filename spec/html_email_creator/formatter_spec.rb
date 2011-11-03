@@ -2,8 +2,10 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe HtmlEmailCreator::Formatter do
   describe "Markdown" do
+    let(:md) { HtmlEmailCreator::Formatters::Markdown.id }
+    
     it "should convert correctly" do
-      HtmlEmailCreator::Formatter.new("**I am strong**").format(:md).should eql("<p><strong>I am strong</strong></p>")
+      HtmlEmailCreator::Formatter.new("**I am strong**").find(md).format.should eql("<p><strong>I am strong</strong></p>")
     end
 
     it "should support table extension" do
@@ -32,7 +34,7 @@ describe HtmlEmailCreator::Formatter do
 </table>
 eos
 
-      HtmlEmailCreator::Formatter.new(markdown).format(:md).should eql(html.strip)
+      HtmlEmailCreator::Formatter.new(markdown).find(md).format.should eql(html.strip)
     end
   end
 end

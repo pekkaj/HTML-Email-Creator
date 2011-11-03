@@ -1,26 +1,30 @@
 require "liquid"
 
-module HtmlEmailCreator  
+module HtmlEmailCreator
   class Formatter
-    @@CONFIG = {
-      :md => HtmlEmailCreator::Formatters::Markdown
-    }
+    @@DEFAULT = HtmlEmailCreator::Formatters::UnknownFormatter
+    @@CONFIG = {}
+
+    [
+      HtmlEmailCreator::Formatters::Markdown,
+      HtmlEmailCreator::Formatters::PlainTextEmail,
+      HtmlEmailCreator::Formatters::HtmlEmail
+    ].each do |klass|
+      @@CONFIG[klass.id] = klass
+    end
     
-    def initialize(text)
+    def initialize(text, settings = HtmlEmailCreator.settings)
       @text = text
+      @settings = settings
+    end
+    
+    def find(format)
+      klass = @@CONFIG[format.to_sym] || @@DEFAULT
+      klass.send(:new, @text, @settings)
     end
         
-    def format(format)
-      formatter = @@CONFIG[format.to_sym]
-      if formatter
-        formatter.send(:new, @text).send(:to_html)
-      else
-        @text
-      end
-    end
-    
-    def format_by_filename(filename)
-      format(File.extname(filename).split(".").last)
+    def find_by_filename(filename)
+      find(File.extname(filename).split(".").last)
     end
   end
 end

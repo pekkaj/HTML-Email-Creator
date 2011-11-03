@@ -9,7 +9,17 @@ RSpec.configure do |config|
 end
 
 def fixture_dir(*pathparts)
-  File.join(File.dirname(__FILE__), 'fixtures', pathparts)
+  File.join(File.dirname(__FILE__), 'fixtures', pathparts.flatten)
+end
+
+def read_fixture(*pathparts)
+  IO.read(fixture_dir(pathparts))
+end
+
+def clean_fixture_output
+  Dir.glob(File.join(fixture_dir, "**", "Output", "**", "*.{html,txt}")).each do |file|
+    File.delete(file)
+  end
 end
 
 def run_in_fixture_dir(*pathparts, &block)

@@ -13,13 +13,11 @@ program :description, HtmlEmailCreator::DESCRIPTION
 command :create do |c|
   c.syntax = 'html_email_creator create <email or directory>'
   c.description = 'Creates a single email or all emails from the directory'
-  c.option '--recursive', 'If creating directory, find from sub directories too.'
+  c.option '--norecursive', 'If creating directory, don\'t look into sub directories.'
   c.action do |args, options|
     # TODO implement me
-    recursive = options.recursive ? true : false
+    recursive = options.norecursive ? false : true
     full_path = File.expand_path(args.first, Dir.pwd)
-    # run in this directory
-    Dir.chdir(File.dirname(full_path))
     results = HtmlEmailCreator::EmailCreator.new.save_emails(full_path, recursive)
     say "Creation completed!\n\n"
     results.each_pair do |file, format|

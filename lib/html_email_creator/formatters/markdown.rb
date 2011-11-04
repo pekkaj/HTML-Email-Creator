@@ -13,7 +13,7 @@ module HtmlEmailCreator
 
       def initialize(text, settings)
         super
-        @document = Kramdown::Document.new(text)
+        @document = Kramdown::Document.new(text, :input => 'markdown')
       end
   
       def format

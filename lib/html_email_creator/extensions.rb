@@ -10,7 +10,7 @@ module HtmlEmailCreator
         'full_name' => '{!name_fix}',
         'first_name' => '{!firstname_fix}',
         'last_name' => '{!lastname_fix}',
-        'company_signature' => '{!signature}',
+        'signature' => '{!signature}',
         'company_address' => '{!contact_address}',
         'tomorrow' => '{!date dayname+1}',
         'after_2_days' => '{!date dayname+2}',

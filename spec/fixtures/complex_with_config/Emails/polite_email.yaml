@@ -1,5 +1,5 @@
 config:
-  output: "basic_text"
+  output: "cool/basic_text"
   layout: "basic.liquid"
   data:
     title_content: "A variant"

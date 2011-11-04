@@ -15,10 +15,11 @@ module HtmlEmailCreator
     end
 
     def save
-      FileUtils.mkdir_p(@settings.output_path) unless File.exists?(@settings.output_path)
       file = File.join(@settings.output_path, "#{@output_basename}.#{@formatter.extension}")
-      File.open(file, "w") do |file|
-        file.write(get)
+      directory = File.dirname(file)
+      FileUtils.mkdir_p(directory) unless File.exists?(directory)
+      File.open(file, "w") do |opened_file|
+        opened_file.write(get)
       end
       file
     end

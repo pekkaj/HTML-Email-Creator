@@ -98,8 +98,8 @@ eos
     it "should store all correct versions of emails recursively" do
       emails = creator.save_emails(".", true)
       
-      read_fixture("complex_with_config", "Output", "basic_text.html").should == expected_basic_text_html
-      read_fixture("complex_with_config", "Output", "basic_text.txt").should == expected_basic_text_txt
+      read_fixture("complex_with_config", "Output", "cool", "basic_text.html").should == expected_basic_text_html
+      read_fixture("complex_with_config", "Output", "cool", "basic_text.txt").should == expected_basic_text_txt
       read_fixture("with_config", "Output", "first.html").should == expected_first_html
       read_fixture("with_config", "Output", "first.txt").should == expected_first_txt
     end

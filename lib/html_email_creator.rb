@@ -5,6 +5,7 @@ def require_all(path)
   end
 end
 
+require 'fileutils'
 require_all 'html_email_creator/tags'
 require_all 'html_email_creator/formatters'
 

@@ -3,7 +3,7 @@ require "liquid"
 module HtmlEmailCreator
   class Email
     attr_reader :settings
-    
+
     def self.find_emails(file_or_directory, recursively = false)
       if File.directory?(file_or_directory)
         if recursively
@@ -33,23 +33,23 @@ module HtmlEmailCreator
       end
       @versions
     end
-    
+
     # Renders email in a specific format
     def render_only(format)
       formatter = HtmlEmailCreator::Formatter.new(rendered_email, @settings).find(format)
       HtmlEmailCreator::EmailVersion.new(formatter, output_basename, @settings)
     end
-    
+
     # Convenience method for rendering HTML email.
     def render_html_email
       render_only(HtmlEmailCreator::Formatters::HtmlEmail.id)
     end
-    
+
     # Convenience method for rendering plain text email.
     def render_plain_text_email
       render_only(HtmlEmailCreator::Formatters::PlainTextEmail.id)
     end
-    
+
     private
 
     def rendered_email
@@ -66,28 +66,37 @@ module HtmlEmailCreator
       else
         configuration
       end
-      
+
       defaults = {
         "output_formats" => ["plain_text_email", "html_email"]
       }
-      
+
       config_hash.merge(defaults)
     end
-    
+
     def output_basename
       @configuration["config"]["output"]
     end
-    
+
     def layout_path
       File.join(@settings.layouts_path, @configuration["config"]["layout"])
     end
-    
+
     def fill_blanks(layout)
       filled_layout = layout.dup
+
+      # fill email specific content to layout
       @configuration["config"]["data"].each_pair do |key, value|
         filled_layout.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
       end
+
+      # fill also global settings content to layout
+      @settings.extension_data.each_pair do |key, value|
+        filled_layout.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
+      end
+
       filled_layout
     end
+
   end
 end

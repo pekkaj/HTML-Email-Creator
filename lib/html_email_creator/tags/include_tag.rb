@@ -60,7 +60,7 @@ module HtmlEmailCreator
       if File.exists?(template)
         # run through a formatter
         formatter = HtmlEmailCreator::Formatter.new(IO.read(template), settings)
-        formatter.find_by_filename(template).format
+        settings.fill_extension_data(formatter.find_by_filename(template).format)
       else
         "Included file '#{template}' not found."
       end

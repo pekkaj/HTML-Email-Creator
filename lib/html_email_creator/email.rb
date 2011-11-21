@@ -90,12 +90,7 @@ module HtmlEmailCreator
         filled_layout.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
       end
 
-      # fill also global settings content to layout
-      @settings.extension_data.each_pair do |key, value|
-        filled_layout.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
-      end
-
-      filled_layout
+      @settings.fill_extension_data(filled_layout)
     end
 
   end

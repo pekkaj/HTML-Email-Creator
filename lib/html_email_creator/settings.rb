@@ -2,13 +2,13 @@ module HtmlEmailCreator
   class Settings
 
     # Create settings configuration file.
-    # 
+    #
     # If the root is not set, the configuration is not searched from the file system
     # but instead the defaults are used.
     def initialize(root = nil)
       @root = root
       @root ||= File.expand_path('~')
-      @config = create_configuration      
+      @config = create_configuration
     end
 
     def layouts_path
@@ -22,13 +22,23 @@ module HtmlEmailCreator
     def emails_path
       @config["emails_path"]
     end
-    
+
     def includes_path
       @config["includes_path"]
     end
 
     def cdn_url
       @config["cdn_url"]
+    end
+
+    def fill_extension_data(source)
+      filled = source.dup
+
+      extension_data.each_pair do |key, value|
+        filled.gsub!(/\{\{\s*#{key}\s*\}\}/, value)
+      end
+
+      filled
     end
 
     def extension_data
@@ -43,7 +53,7 @@ module HtmlEmailCreator
     def built_in_extensions
       (@config["extensions"] || {})["built_in"] || []
     end
-    
+
     private
 
     def custom_extensions
@@ -56,23 +66,23 @@ module HtmlEmailCreator
         config_root_dir = File.dirname(config_file)
         loaded_config = YAML.load_file(config_file)
         # fill missing values with defaults if missing
-        default_config.each_pair do |key, value|          
+        default_config.each_pair do |key, value|
           loaded_config[key] = value unless loaded_config[key]
         end
-        
+
         # make absolute paths if is relative for all _path ending keys
         loaded_config.each_pair do |key, value|
           if key.match(/_path$/) && !value.match(/^\//)
             loaded_config[key] = File.join(config_root_dir, value)
           end
         end
-        
+
         loaded_config
       else
         default_config
       end
     end
-    
+
     def default_config
       {
         "layouts_path" => find_dir("Layouts"),
@@ -83,11 +93,11 @@ module HtmlEmailCreator
         "extensions" => {}
       }
     end
-    
+
     def find_dir(dir)
       HtmlEmailCreator::Helper.find_recursively(@root, dir, File.join(@root, dir))
     end
-              
+
     def find_config_file
       HtmlEmailCreator::Helper.find_recursively(@root, ".html_config.yaml")
     end

@@ -19,6 +19,11 @@ module HtmlEmailCreator
         'after_5_days' => '{!date dayname+5}',
         'after_6_days' => '{!date dayname+6}',
         'after_7_days' => '{!date dayname+7}'
+      },
+      'mailchimp' => {
+        'first_name' => '*|FNAME|*',
+        'last_name' => '*|LNAME|*',
+        'unsubscribe_url' => '*|UNSUBSCRIBE|*'
       }
     }
     

@@ -24,7 +24,7 @@ module HtmlEmailCreator
         'email' => '*|EMAIL|*',
         'first_name' => '*|FNAME|*',
         'last_name' => '*|LNAME|*',
-        'unsubscribe_url' => '*|UNSUBSCRIBE|*'
+        'unsubscribe_url' => '*|UNSUB|*'
       }
     }
 

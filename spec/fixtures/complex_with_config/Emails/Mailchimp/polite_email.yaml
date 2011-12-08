@@ -1,0 +1,7 @@
+config:
+  output: "cool/basic_text"
+  layout: "basic.liquid"
+  data:
+    title_content: "A variant"
+    header_1_content: "{{ logo }}"
+    header_2_content: "{% include 'Emails/love.md' what: 'iPhone' %}"

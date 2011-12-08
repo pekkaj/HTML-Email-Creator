@@ -29,6 +29,16 @@ describe HtmlEmailCreator::Layout do
         end
       end
     end
+    
+    describe "mailchimp" do
+      let(:mailchimp) { HtmlEmailCreator::Extensions.new.built_in("mailchimp") }
+      let(:none) { {} }
+
+      it "should replace Mailchimp extension keys correctly if aweber extension is being used" do
+        HtmlEmailCreator::Layout.new("{{ first_name }}", mailchimp).to_html.should eql('*|FNAME|*')
+        HtmlEmailCreator::Layout.new("{{ last_name }}", none).to_html.should eql('')
+      end
+    end
   end
 
   describe "with custom extensions" do

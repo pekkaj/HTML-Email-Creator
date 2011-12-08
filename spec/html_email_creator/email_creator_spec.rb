@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'spec_helper')
 
 describe HtmlEmailCreator::EmailCreator do
   let(:creator) { HtmlEmailCreator::EmailCreator.new }
-  let(:email) { fixture_dir("complex_with_config", "Emails", "polite_email.yaml") }
+  let(:email) { fixture_dir("complex_with_config", "Emails", "Aweber", "polite_email.yaml") }
   let(:expected_basic_text_html) {
     html = <<eos
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -105,13 +105,13 @@ eos
     end
     
     it "should store only one file if needed using absolute paths" do
-      IO.read(creator.create_html_email(fixture_dir("complex_with_config", "Emails", "polite_email.yaml")).save).should == expected_basic_text_html
+      IO.read(creator.create_html_email(fixture_dir("complex_with_config", "Emails", "Aweber", "polite_email.yaml")).save).should == expected_basic_text_html
     end
     
     it "should store only one file if needed using relative paths" do
       run_in_fixture_dir("complex_with_config") do
         email_creator = HtmlEmailCreator::EmailCreator.new
-        IO.read(email_creator.create_html_email(File.join("Emails", "polite_email.yaml")).save).should == expected_basic_text_html
+        IO.read(email_creator.create_html_email(File.join("Emails", "Aweber", "polite_email.yaml")).save).should == expected_basic_text_html
       end
     end
   end

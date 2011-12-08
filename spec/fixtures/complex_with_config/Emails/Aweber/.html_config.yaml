@@ -1,7 +1,7 @@
-layouts_path: "Layouts"
-output_path: "Output"
-emails_path: "Emails"
-includes_path: "Includes"
+layouts_path: "../../Layouts"
+output_path: "../../Output"
+emails_path: "../../Emails"
+includes_path: "../../Includes"
 cdn_url: "http://cdn.example.com"
 extensions:
   built_in:

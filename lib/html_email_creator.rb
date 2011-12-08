@@ -34,7 +34,7 @@ module HtmlEmailCreator
     end
     
     def callbacks(current_settings = settings)
-      @callbacks ||= Callbacks.new(current_settings)
+      Callbacks.new(current_settings)
     end
     
     def settings

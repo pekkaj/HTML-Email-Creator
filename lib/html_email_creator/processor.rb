@@ -5,7 +5,7 @@ require 'inline-style'
 
 module HtmlEmailCreator
   class Processor
-    def initialize(email_string, settings = HtmlEmailCreator.settings)
+    def initialize(email_string, settings = HtmlEmailCreator::settings)
       @email = email_string
       @settings = settings
     end

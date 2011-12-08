@@ -90,22 +90,31 @@ eos
     end
   end
 
-  describe "aweber escaping" do
-    it "should not escape aweber markup if using aweber extension" do
-      html = <<-eos
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<body>
-<p>{!date dayname+7}</p>
-</body>
-</html>
-eos
+  describe "Character unescaping" do
+    html = <<-eos
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <html>
+    <body>
+    <p>%7B!date dayname+7%7D *%7CFNAME%7C*</p>
+    </body>
+    </html>
+    eos
 
+    it "should unescape Aweber markup if using Aweber extension" do
       run_in_fixture_dir("with_config") do
         processor = HtmlEmailCreator::Processor.new(html)
-        processor.to_html.should include("<p>{!date dayname+7}</p>")
-        processor.to_plain_text.should include("{!date dayname+7}")
+        processor.to_html.should include("<p>{!date dayname+7} *%7CFNAME%7C*</p>")
+        processor.to_plain_text.should include("{!date dayname+7} *%7CFNAME%7C*")
       end
     end
+
+    it "should unescape Mailchimp markup if using Mailchimp extension" do
+      run_in_fixture_dir("with_mailchimp_config") do
+        processor = HtmlEmailCreator::Processor.new(html)
+        processor.to_html.should include("<p>%7B!date dayname+7%7D *|FNAME|*</p>")
+        processor.to_plain_text.should include("%7B!date dayname+7%7D *|FNAME|*")
+      end
+    end
+
   end
 end

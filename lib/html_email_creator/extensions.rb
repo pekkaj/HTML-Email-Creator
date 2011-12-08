@@ -58,22 +58,21 @@ module HtmlEmailCreator
         method_name = "process_html_for_#{extension}".to_sym
 
         if self.respond_to?(method_name)
-          processed_html = self.send(method_name, method_name)
+          processed_html = self.send(method_name, html)
         end
       end
 
       processed_html
     end
 
-    private
+    protected
 
     def process_html_for_aweber(html)
       html.gsub(/%7B/, '{').gsub(/%7D/, '}').gsub(/!global%20/, '!global ')
     end
 
     def process_html_for_mailchimp(html)
-      html.gsub(/%7/, '|')
+      html.gsub(/\*%7C/, '*|').gsub(/%7C\*/, '|*')
     end
-
   end
 end

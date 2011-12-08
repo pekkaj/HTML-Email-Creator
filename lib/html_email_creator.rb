@@ -11,6 +11,7 @@ require_all 'html_email_creator/formatters'
 
 module HtmlEmailCreator
   
+  autoload :Callbacks, "html_email_creator/callbacks"
   autoload :Email, "html_email_creator/email"
   autoload :EmailCreator, "html_email_creator/email_creator"
   autoload :EmailVersion, "html_email_creator/email_version"
@@ -30,6 +31,10 @@ module HtmlEmailCreator
         
     def current_dir
       Dir.pwd
+    end
+    
+    def callbacks(current_settings = settings)
+      @callbacks ||= Callbacks.new(current_settings)
     end
     
     def settings

@@ -43,7 +43,7 @@ module HtmlEmailCreator
 
     def extension_data
       return @extension_data if @extension_data
-      extensions = HtmlEmailCreator::Extensions.new(self)
+      extensions = HtmlEmailCreator::Extensions.new
       built_in_data = extensions.built_in(built_in_extensions)
       # use built in data for creating custom data
       custom_data = extensions.custom(built_in_data, custom_extensions)
@@ -53,7 +53,7 @@ module HtmlEmailCreator
     def built_in_extensions
       (@config["extensions"] || {})["built_in"] || []
     end
-
+    
     private
 
     def custom_extensions

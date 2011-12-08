@@ -27,11 +27,12 @@ module HtmlEmailCreator
         'unsubscribe_url' => '*|UNSUBSCRIBE|*'
       }
     }
-    
-    def initialize(settings = HtmlEmailCreator.settings)
-      @settings = settings
+
+    # This is a mechanism for handling HTML email for certain extension
+
+    def initialize()
     end
-    
+
     def built_in(*extensions)
       new_data = {}
       extensions.flatten.each do |extension|
@@ -40,7 +41,7 @@ module HtmlEmailCreator
       end
       new_data
     end
-    
+
     def custom(data = {}, extensions)
       new_data = {}
       extensions.each_pair do |key, value|
@@ -48,5 +49,31 @@ module HtmlEmailCreator
       end
       new_data
     end
+
+    # HTML callback after the HTML is created.
+    def process_html(html, *extensions)
+      processed_html = html.dup
+
+      extensions.each do |extension|
+        method_name = "process_html_for_#{extension}".to_sym
+
+        if self.respond_to?(method_name)
+          processed_html = self.send(method_name, method_name)
+        end
+      end
+
+      processed_html
+    end
+
+    private
+
+    def process_html_for_aweber(html)
+      html.gsub(/%7B/, '{').gsub(/%7D/, '}').gsub(/!global%20/, '!global ')
+    end
+
+    def process_html_for_mailchimp(html)
+      html.gsub(/%7/, '|')
+    end
+
   end
 end

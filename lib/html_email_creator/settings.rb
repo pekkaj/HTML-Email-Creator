@@ -1,3 +1,5 @@
+require 'YAML'
+
 module HtmlEmailCreator
   class Settings
 

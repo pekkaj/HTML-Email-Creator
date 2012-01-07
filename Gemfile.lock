@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    html_email_creator (0.0.1)
+    html_email_creator (1.0.16)
       commander (>= 4.0.6)
       inline-style (>= 0.5.0)
       kramdown (>= 0.13.3)
@@ -17,15 +17,15 @@ GEM
     css_parser (1.2.5)
       addressable
     diff-lcs (1.1.3)
-    facets (2.9.2)
-    ffi (1.0.10)
+    facets (2.9.3)
+    ffi (1.0.11)
     highline (1.5.2)
     inline-style (0.5.0)
       css_parser
       facets
       maca-fork-csspool
       nokogiri
-    kramdown (0.13.3)
+    kramdown (0.13.4)
     liquid (2.3.0)
     maca-fork-csspool (2.0.2)
       ffi

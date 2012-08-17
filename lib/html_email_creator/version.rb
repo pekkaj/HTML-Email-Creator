@@ -1,3 +1,3 @@
 module HtmlEmailCreator
-  VERSION = "1.0.16" unless defined?(::HtmlEmailCreator::VERSION)
+  VERSION = "1.0.17" unless defined?(::HtmlEmailCreator::VERSION)
 end

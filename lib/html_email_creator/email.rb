@@ -1,4 +1,5 @@
 require "liquid"
+require "yaml"
 
 module HtmlEmailCreator
   class Email

@@ -9,7 +9,7 @@ describe HtmlEmailCreator::EmailCreator do
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>A variant</title>
 </head>
 <body>
@@ -34,7 +34,7 @@ eos
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>A variant</title>
 </head>
 <body>
@@ -149,7 +149,6 @@ eos
 
     it "should store all correct versions of emails recursively" do
       emails = creator.save_emails(".", true)
-
       read_fixture("complex_with_config", "Output", "Aweber", "cool", "basic_text.html").should == expected_basic_text_html_aweber
       read_fixture("complex_with_config", "Output", "Aweber", "cool", "basic_text.txt").should == expected_basic_text_txt_aweber
       read_fixture("complex_with_config", "Output", "Mailchimp", "cool", "basic_text.html").should == expected_basic_text_html_mailchimp

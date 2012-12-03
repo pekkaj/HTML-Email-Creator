@@ -1,7 +1,6 @@
-require 'yaml'
-
 module HtmlEmailCreator
   class Settings
+    require 'yaml'
 
     # Create settings configuration file.
     #
